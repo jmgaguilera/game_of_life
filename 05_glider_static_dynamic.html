@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <script src="game_of_life.js"></script>
+    <script type="text/javascript">
+      'use strict';
+
+      var board;
+      var drawing;
+      var btnNextGen;
+
+      function runNextGen() {
+        board.calculateNextGen();
+        board.establishGen();
+        board.toHTMLCanvas(drawing);
+      }
+
+      function reset() {
+        board = new Board(20);
+        board.addCells([[3,3],[3,4], [3,5], [2,5],[1,4], [15,11], [14,12], [16,12], [14,13], [16,13], [15,14]]);
+        board.establishGen();
+        board.toHTMLCanvas(drawing);
+      }
+
+      function init() {
+        // elements and events
+        drawing = document.getElementById('drawing');
+        btnNextGen = document.getElementById('btnNextGen');
+        // board
+        reset();
+        // events
+        btnNextGen.addEventListener('click', runNextGen);
+        btnReset.addEventListener('click', reset);
+      }
+
+      window.onload = init;
+
+    </script>
+    <title>Game of life: glider vs. static life</title>
+  </head>
+<body>
+  <h1>Game of life: glider vs. static life</h1>
+  <div>
+    <canvas id="drawing" width="400" height="400" style="border:2px solid #000000;">
+    </canvas>
+  </div>
+  <div>
+  <button id="btnNextGen">Next Generation</button>
+  <button id="btnReset">Reset</button>
+  </div>
+</body>
+</html>
